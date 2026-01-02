@@ -35,7 +35,7 @@ app.post("/register", async (req, res) => {
 
   try {
     await db.query(
-      "INSERT INTO users (username, password, is_private) VALUES (?, ?, ?)",
+      "INSERT INTO users1 (username, password, is_private) VALUES (?, ?, ?)",
       [username, password, isPrivate]
     );
     res.json({ message: "User registered successfully" });
@@ -51,7 +51,7 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   const [rows] = await db.query(
-    "SELECT * FROM users WHERE username=? AND password=?",
+    "SELECT * FROM users1 WHERE username=? AND password=?",
     [username, password]
   );
 
@@ -77,7 +77,7 @@ app.post("/posts", verifyToken, async (req, res) => {
   const { caption } = req.body;
 
   await db.query(
-    "INSERT INTO posts (user_id, caption) VALUES (?, ?)",
+    "INSERT INTO posts1 (user_id, caption) VALUES (?, ?)",
     [req.user.userId, caption]
   );
 
@@ -92,7 +92,7 @@ app.get("/posts/:userId", verifyToken, async (req, res) => {
   const viewerId = req.user.userId; // ✅ CORRECT
 
   const [[profileUser]] = await db.query(
-    "SELECT * FROM users WHERE id=?",
+    "SELECT * FROM users1 WHERE id=?",
     [profileUserId]
   );
 
@@ -108,12 +108,12 @@ app.get("/posts/:userId", verifyToken, async (req, res) => {
     });
   }
 
-  const [posts] = await db.query(
-    "SELECT * FROM posts WHERE user_id = ?",
+  const [posts1] = await db.query(
+    "SELECT * FROM posts1 WHERE user_id = ?",
     [profileUserId]
   );
 
-  res.json(posts);
+  res.json(posts1);
 });
 
 

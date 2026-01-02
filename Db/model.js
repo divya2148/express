@@ -4,7 +4,7 @@ async function initializeDatabase() {
   try {
     // USERS TABLE
     await db.query(`
-      CREATE TABLE IF NOT EXISTS users (
+      CREATE TABLE IF NOT EXISTS users1 (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(100) UNIQUE,
         password VARCHAR(255),
@@ -14,12 +14,12 @@ async function initializeDatabase() {
     `);
 
     await db.query(`
-  CREATE TABLE IF NOT EXISTS posts (
+  CREATE TABLE IF NOT EXISTS posts1 (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     caption TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users1(id)
   )
 `);
 
